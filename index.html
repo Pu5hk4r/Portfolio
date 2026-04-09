@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pushkar — AI Engineer & Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06070d;
+  --surface: #0d0f1a;
+  --surface2: #131525;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --accent: #6d56fa;
+  --accent2: #0fd4a0;
+  --accent3: #f97316;
+  --text: #e8eaf2;
+  --muted: #6b7280;
+  --card: rgba(13,15,26,0.8);
+  --mono: 'DM Mono', monospace;
+  --sans: 'Outfit', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── NOISE TEXTURE ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 4rem;
+  background: rgba(6,7,13,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--accent2);
+  letter-spacing: 0.05em;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 4rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(109,86,250,0.12) 0%, transparent 70%);
+  top: -100px; left: -100px;
+  pointer-events: none;
+}
+.hero-glow2 {
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(15,212,160,0.08) 0%, transparent 70%);
+  bottom: 100px; right: 100px;
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--accent2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px; height: 1px;
+  background: var(--accent2);
+}
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.25rem;
+}
+.hero h1 .name-accent { color: var(--accent); }
+.hero-sub {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+}
+.hero-sub span {
+  color: var(--text);
+  font-weight: 500;
+}
+.hero-desc {
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.01em;
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+}
+.btn-primary:hover {
+  background: #7c68fb;
+  transform: translateY(-1px);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-hover);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+  font-family: var(--mono);
+}
+
+/* ─── SECTION ─── */
+section {
+  padding: 6rem 4rem;
+  position: relative;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: var(--accent2);
+}
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 3rem;
+}
+
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.about-text p {
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+}
+.about-text p strong { color: var(--text); font-weight: 600; }
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  background: rgba(109,86,250,0.1);
+  border: 1px solid rgba(109,86,250,0.25);
+  color: #a99ffa;
+}
+.tag.green {
+  background: rgba(15,212,160,0.08);
+  border-color: rgba(15,212,160,0.2);
+  color: var(--accent2);
+}
+.tag.orange {
+  background: rgba(249,115,22,0.08);
+  border-color: rgba(249,115,22,0.2);
+  color: var(--accent3);
+}
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.info-icon {
+  font-size: 1.2rem;
+  width: 36px;
+  text-align: center;
+}
+.info-key {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.1rem;
+}
+.info-val {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ─── PROJECTS ─── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(109,86,250,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.project-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.project-card.featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.project-card.featured::before {
+  background: linear-gradient(135deg, rgba(109,86,250,0.08) 0%, transparent 60%);
+}
+.project-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.badge-featured {
+  background: rgba(109,86,250,0.15);
+  border: 1px solid rgba(109,86,250,0.3);
+  color: #a99ffa;
+}
+.badge-featured::before {
+  content: '★';
+  color: var(--accent);
+}
+.project-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+.project-card.featured .project-title {
+  font-size: 1.6rem;
+}
+.project-desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+.project-features {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+.project-features li {
+  font-size: 0.875rem;
+  color: var(--muted);
+  padding: 0.3rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+.project-features li::before {
+  content: '→';
+  color: var(--accent2);
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+.stack-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 5px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+.project-link:hover { gap: 0.7rem; }
+.project-visual {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  overflow: hidden;
+  position: relative;
+}
+.arch-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+}
+.arch-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.arch-node {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.arch-node.purple { background: rgba(109,86,250,0.12); border-color: rgba(109,86,250,0.3); color: #a99ffa; }
+.arch-node.teal   { background: rgba(15,212,160,0.1);  border-color: rgba(15,212,160,0.25); color: var(--accent2); }
+.arch-node.orange { background: rgba(249,115,22,0.1);  border-color: rgba(249,115,22,0.25); color: var(--accent3); }
+.arch-node.gray   { background: rgba(255,255,255,0.05); border-color: var(--border); color: var(--muted); }
+.arch-arrow {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+/* ─── SKILLS ─── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+.skill-group:hover { border-color: var(--border-hover); }
+.skill-group-title {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.skill-pill {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ─── GAME SECTION ─── */
+#game {
+  padding: 6rem 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.game-inner {
+  padding: 0 4rem;
+}
+.game-wrapper {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  height: 520px;
+  margin-top: 2rem;
+}
+.game-ui {
+  position: absolute;
+  top: 16px; left: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(0,255,100,0.2);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: #0f0;
+  min-width: 200px;
+}
+.game-ui-title {
+  font-weight: 500;
+  color: #0f0;
+  border-bottom: 1px solid rgba(0,255,0,0.15);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+}
+.game-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.game-control label {
+  color: rgba(0,255,0,0.7);
+}
+.game-control input[type=range] {
+  width: 100%;
+  accent-color: #0f0;
+  cursor: pointer;
+}
+.game-btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+.game-btn {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 0.3rem 0.6rem;
+  background: rgba(0,255,0,0.1);
+  border: 1px solid rgba(0,255,0,0.3);
+  color: #0f0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.game-btn:hover { background: rgba(0,255,0,0.2); }
+.game-stat {
+  color: rgba(0,255,0,0.8);
+}
+.game-stat span { color: #0f0; font-weight: 500; }
+#gameCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ─── CONTACT ─── */
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.contact-left h2 { margin-bottom: 1rem; }
+.contact-left p {
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.contact-link:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+.contact-link-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.contact-link-icon.gh { background: rgba(255,255,255,0.08); }
+.contact-link-icon.li { background: rgba(0,119,181,0.15); }
+.contact-link-icon.em { background: rgba(249,115,22,0.12); }
+.contact-link-icon.pl { background: rgba(15,212,160,0.1); }
+.contact-tagline {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--muted);
+}
+.contact-tagline strong { color: var(--text); }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 2rem 4rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-family: var(--mono);
+}
+footer a { color: var(--accent2); text-decoration: none; }
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero, section, .game-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .about-grid, .contact-inner { grid-template-columns: 1fr; }
+  .project-card.featured { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">pushkar.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#game">Lab</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-eyebrow">Based in Delhi, India</div>
+  <h1>Hi, I'm <span class="name-accent">Pushkar</span></h1>
+  <p class="hero-sub"><span>AI Engineer</span> · Full Stack Python Developer · <span>Data Pipeline Builder</span></p>
+  <p class="hero-desc">
+    I build production-grade AI systems — from LangGraph stateful agents and RAG pipelines to real-time Kafka/Spark data infrastructure. I deploy things that actually work.
+  </p>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn btn-primary">View Projects →</a>
+    <a href="https://github.com/Pu5hk4r" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    <a href="https://linkedin.com/in/pushkar25" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Projects Shipped</div>
+    </div>
+    <div>
+      <div class="stat-num">9</div>
+      <div class="stat-label">Phase Build Plan</div>
+    </div>
+    <div>
+      <div class="stat-num">GCP</div>
+      <div class="stat-label">Cloud Deployed</div>
+    </div>
+    <div>
+      <div class="stat-num">LLM</div>
+      <div class="stat-label">Agent Architect</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2 class="section-title">Who I am</h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm a <strong>Full Stack Python Developer and AI Engineer</strong> focused on building systems that sit at the intersection of backend engineering, machine learning, and agentic AI.</p>
+      <p>My flagship project — a <strong>LangGraph-powered GitHub PR Review Agent</strong> — uses Groq + LLaMA 3.1 70B, pgvector RAG, and GitHub webhooks, deployed live on GCP Cloud Run. It reviews code like a senior engineer, automatically.</p>
+      <p>Beyond AI agents, I build <strong>real-time data pipelines</strong> with Kafka, Spark, and Airflow, and full-stack apps with FastAPI backends and React frontends. I care about systems that are production-ready, not just demo-ready.</p>
+      <div class="about-tags">
+        <span class="tag">Agentic AI</span>
+        <span class="tag">RAG Systems</span>
+        <span class="tag">LLM Integration</span>
+        <span class="tag green">Kafka · Spark · Airflow</span>
+        <span class="tag green">FastAPI · PostgreSQL</span>
+        <span class="tag orange">Docker · GCP Cloud Run</span>
+      </div>
+    </div>
+    <div class="info-list">
+      <div class="info-row">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-key">Location</div>
+          <div class="info-val">Delhi, India</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🎯</div>
+        <div>
+          <div class="info-key">Currently Building</div>
+          <div class="info-val">CODEREVIEW-AI-AGENT</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🏆</div>
+        <div>
+          <div class="info-key">Achievement</div>
+          <div class="info-val">Hackathon Winner @ TechFest 2024</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">📬</div>
+        <div>
+          <div class="info-key">Email</div>
+          <div class="info-val">pushstack25@gmail.com</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🔗</div>
+        <div>
+          <div class="info-key">GitHub</div>
+          <div class="info-val">github.com/Pu5hk4r</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+
+    <!-- FEATURED -->
+    <div class="project-card featured reveal">
+      <div>
+        <div class="project-badge badge-featured">Most Advanced</div>
+        <div class="project-title">CODEREVIEW-AI-AGENT</div>
+        <p class="project-desc">An AI agent that reviews GitHub Pull Requests like a senior engineer. Triggered via webhooks, it fetches diffs, retrieves codebase context via RAG, and posts structured review comments automatically.</p>
+        <ul class="project-features">
+          <li>LangGraph stateful agent: fetch → analyze → review → post</li>
+          <li>Groq + LLaMA 3.1 70B for sub-second code understanding</li>
+          <li>pgvector RAG for codebase-aware contextual reviews</li>
+          <li>FastAPI + async SQLAlchemy + GCP Cloud Run</li>
+        </ul>
+        <div class="project-stack">
+          <span class="stack-tag">LangGraph</span>
+          <span class="stack-tag">Groq</span>
+          <span class="stack-tag">pgvector</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">Docker</span>
+          <span class="stack-tag">GCP</span>
+          <span class="stack-tag">React</span>
+        </div>
+        <a href="https://github.com/Pu5hk4r/CODEREVIEW-AI-AGENT" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-visual">
+        <div class="arch-diagram">
+          <div class="arch-row">
+            <span class="arch-node teal">GitHub Webhook</span>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-row">
+            <span class="arch-node purple">FastAPI</span>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-row">
+            <span class="arch-node purple">LangGraph Agent</span>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-row">
+            <span class="arch-node orange">Groq · LLaMA 3.1 70B</span>
+            <span class="arch-node teal">pgvector RAG</span>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-row">
+            <span class="arch-node gray">PostgreSQL</span>
+            <span class="arch-node teal">PR Comment</span>
+          </div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-row">
+            <span class="arch-node orange">GCP Cloud Run</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card reveal">
+      <div class="project-title">🚖 RealTime Taxi Demand Pipeline</div>
+      <p class="project-desc">End-to-end streaming pipeline predicting NYC taxi demand in real time with Kafka, Spark, and ML — including scheduled Airflow retraining.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Kafka</span>
+        <span class="stack-tag">Spark</span>
+        <span class="stack-tag">Airflow</span>
+        <span class="stack-tag">PostgreSQL</span>
+        <span class="stack-tag">ML</span>
+        <span class="stack-tag">Dash</span>
+      </div>
+      <a href="https://github.com/Pu5hk4r/RealTimeTaxiDemandPipeline" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card reveal">
+      <div class="project-title">🏦 Smart Bank Loan System</div>
+      <p class="project-desc">Full-stack loan management platform with JWT auth, ML-based risk scoring, admin dashboard, and real-time installment calculation.</p>
+      <div class="project-stack">
+        <span class="stack-tag">FastAPI</span>
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">PostgreSQL</span>
+        <span class="stack-tag">ML</span>
+        <span class="stack-tag">JWT</span>
+      </div>
+      <a href="https://github.com/Pu5hk4r/SmartBankLoanManagementSystem" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <!-- PROJECT 4 -->
+    <div class="project-card reveal">
+      <div class="project-title">🧠 Brain Tumour Detection</div>
+      <p class="project-desc">CNN-powered Flask web app classifying MRI scans as Tumor / No Tumor with OpenCV preprocessing and MongoDB Atlas storage.</p>
+      <div class="project-stack">
+        <span class="stack-tag">CNN</span>
+        <span class="stack-tag">Keras</span>
+        <span class="stack-tag">Flask</span>
+        <span class="stack-tag">OpenCV</span>
+        <span class="stack-tag">MongoDB</span>
+      </div>
+      <a href="https://github.com/Pu5hk4r/BrainTumourDetection" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <!-- PROJECT 5 -->
+    <div class="project-card reveal">
+      <div class="project-title">🌿 Plant AI — Disease Detection</div>
+      <p class="project-desc">Fine-tuned ResNet-34 on plant disease dataset using PyTorch. Flask app for real-time leaf image classification.</p>
+      <div class="project-stack">
+        <span class="stack-tag">PyTorch</span>
+        <span class="stack-tag">ResNet-34</span>
+        <span class="stack-tag">Flask</span>
+        <span class="stack-tag">Computer Vision</span>
+      </div>
+      <a href="https://github.com/Pu5hk4r/Plant_AI" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <!-- PROJECT 6 -->
+    <div class="project-card reveal">
+      <div class="project-title">📄 RAG PDF Chatbot</div>
+      <p class="project-desc">Chat with any PDF using LangChain and vector search. Extracts, chunks, embeds, and answers context-aware queries in real time.</p>
+      <div class="project-stack">
+        <span class="stack-tag">LangChain</span>
+        <span class="stack-tag">RAG</span>
+        <span class="stack-tag">Vector DB</span>
+        <span class="stack-tag">Python</span>
+      </div>
+      <a href="https://github.com/Pu5hk4r/RAGPdfChatBot" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills</div>
+  <h2 class="section-title">Tech Stack</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <div class="skill-group-title">⚡ AI / ML</div>
+      <div class="skill-pills">
+        <span class="skill-pill">LangGraph</span>
+        <span class="skill-pill">LangChain</span>
+        <span class="skill-pill">Groq</span>
+        <span class="skill-pill">RAG</span>
+        <span class="skill-pill">pgvector</span>
+        <span class="skill-pill">PyTorch</span>
+        <span class="skill-pill">TensorFlow</span>
+        <span class="skill-pill">Keras</span>
+        <span class="skill-pill">scikit-learn</span>
+        <span class="skill-pill">HuggingFace</span>
+        <span class="skill-pill">XGBoost</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">🔧 Backend</div>
+      <div class="skill-pills">
+        <span class="skill-pill">FastAPI</span>
+        <span class="skill-pill">Flask</span>
+        <span class="skill-pill">Django</span>
+        <span class="skill-pill">async SQLAlchemy</span>
+        <span class="skill-pill">PostgreSQL</span>
+        <span class="skill-pill">MongoDB</span>
+        <span class="skill-pill">Redis</span>
+        <span class="skill-pill">REST APIs</span>
+        <span class="skill-pill">WebSockets</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">🌊 Data Engineering</div>
+      <div class="skill-pills">
+        <span class="skill-pill">Apache Kafka</span>
+        <span class="skill-pill">Apache Spark</span>
+        <span class="skill-pill">PySpark</span>
+        <span class="skill-pill">Airflow</span>
+        <span class="skill-pill">Pandas</span>
+        <span class="skill-pill">NumPy</span>
+        <span class="skill-pill">Tableau</span>
+        <span class="skill-pill">SQL</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">🌐 Frontend</div>
+      <div class="skill-pills">
+        <span class="skill-pill">React</span>
+        <span class="skill-pill">TypeScript</span>
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">Node.js</span>
+        <span class="skill-pill">HTML/CSS</span>
+        <span class="skill-pill">Tailwind</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">☁️ DevOps & Cloud</div>
+      <div class="skill-pills">
+        <span class="skill-pill">Docker</span>
+        <span class="skill-pill">GCP Cloud Run</span>
+        <span class="skill-pill">GitHub Actions</span>
+        <span class="skill-pill">AWS</span>
+        <span class="skill-pill">Linux</span>
+        <span class="skill-pill">Nginx</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">💻 Languages</div>
+      <div class="skill-pills">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">TypeScript</span>
+        <span class="skill-pill">C++</span>
+        <span class="skill-pill">SQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTICLE COLLIDER GAME -->
+<section id="game" style="padding:0;">
+  <div class="game-inner" style="padding-top:6rem; padding-bottom:6rem;">
+    <div class="section-label">Lab</div>
+    <h2 class="section-title">Particle Collider</h2>
+    <p style="color:var(--muted); max-width:560px; margin-bottom:0; font-size:0.95rem;">A Three.js particle physics simulation. Add particles, watch them orbit and collide — generating plasma explosions with audio feedback. Built for fun.</p>
+    <div class="game-wrapper">
+      <div class="game-ui">
+        <div class="game-ui-title">// COLLIDER CONTROLS</div>
+        <div class="game-control">
+          <label>Particle Speed</label>
+          <input type="range" id="speed" min="1" max="200" value="100">
+        </div>
+        <div class="game-control">
+          <label>Energy Level</label>
+          <input type="range" id="energy" min="1" max="100" value="50">
+        </div>
+        <div class="game-control">
+          <label>Collision Power</label>
+          <input type="range" id="power" min="1" max="100" value="75">
+        </div>
+        <div class="game-btns">
+          <button class="game-btn" onclick="initAudio()">🔊 Audio</button>
+          <button class="game-btn" onclick="addParticle()">+ Particle</button>
+          <button class="game-btn" onclick="addDarkMatter()">+ Dark Matter</button>
+          <button class="game-btn" onclick="resetGame()">↺ Reset</button>
+        </div>
+        <div class="game-stat">Particles: <span id="particleCount">0</span></div>
+        <div class="game-stat">Collisions: <span id="collisionCount">0</span></div>
+      </div>
+      <canvas id="gameCanvas"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="contact-left">
+      <div class="section-label">Contact</div>
+      <p class="contact-tagline">Let's build<br><strong>something real.</strong></p>
+      <p style="color:var(--muted); margin:1.5rem 0 2rem; font-size:0.95rem;">Open to AI/ML, backend, or data engineering roles. Also happy to collaborate on interesting projects.</p>
+      <div class="contact-links">
+        <a href="https://github.com/Pu5hk4r" target="_blank" class="contact-link">
+          <div class="contact-link-icon gh">🐙</div>
+          <div>
+            <div style="font-size:0.75rem; color:var(--muted); font-family:var(--mono);">GitHub</div>
+            <div>github.com/Pu5hk4r</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/pushkar25" target="_blank" class="contact-link">
+          <div class="contact-link-icon li">💼</div>
+          <div>
+            <div style="font-size:0.75rem; color:var(--muted); font-family:var(--mono);">LinkedIn</div>
+            <div>linkedin.com/in/pushkar25</div>
+          </div>
+        </a>
+        <a href="mailto:pushstack25@gmail.com" class="contact-link">
+          <div class="contact-link-icon em">✉️</div>
+          <div>
+            <div style="font-size:0.75rem; color:var(--muted); font-family:var(--mono);">Email</div>
+            <div>pushstack25@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://peerlist.io/pushkar0ne" target="_blank" class="contact-link">
+          <div class="contact-link-icon pl">🟢</div>
+          <div>
+            <div style="font-size:0.75rem; color:var(--muted); font-family:var(--mono);">Peerlist</div>
+            <div>peerlist.io/pushkar0ne</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem;">
+        <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent2); margin-bottom:1rem;">$ cat pushkar.json</div>
+        <pre style="font-family:var(--mono); font-size:0.78rem; color:var(--muted); line-height:1.8; white-space:pre-wrap;">{
+  <span style="color:#a99ffa">"available"</span>: <span style="color:var(--accent2)">true</span>,
+  <span style="color:#a99ffa">"open_to"</span>: [
+    <span style="color:var(--accent3)">"AI/ML Engineer"</span>,
+    <span style="color:var(--accent3)">"Backend Developer"</span>,
+    <span style="color:var(--accent3)">"Data Engineer"</span>
+  ],
+  <span style="color:#a99ffa">"location"</span>: <span style="color:var(--accent3)">"Delhi, India"</span>,
+  <span style="color:#a99ffa">"remote"</span>: <span style="color:var(--accent2)">true</span>,
+  <span style="color:#a99ffa">"response_time"</span>: <span style="color:var(--accent3)">"&lt; 24 hours"</span>
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Pushkar · Built with ❤️ and too much coffee</span>
+  <span>Delhi, India 🇮🇳</span>
+</footer>
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ─── GAME ───
+let scene, camera, renderer, particles = [], darkMatter = [], plasmaParticles = [];
+let audioContext, collisions = 0;
+const TUBE_RADIUS = 20;
+
+function initAudio() {
+  if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+}
+
+function playCollisionSound() {
+  if (!audioContext) return;
+  const o1 = audioContext.createOscillator();
+  const o2 = audioContext.createOscillator();
+  const g  = audioContext.createGain();
+  o1.connect(g); o2.connect(g); g.connect(audioContext.destination);
+  o1.frequency.setValueAtTime(440 + Math.random() * 220, audioContext.currentTime);
+  o2.frequency.setValueAtTime(220 + Math.random() * 110, audioContext.currentTime);
+  o1.type = 'sine'; o2.type = 'square';
+  g.gain.setValueAtTime(0.15, audioContext.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+  o1.start(); o2.start();
+  o1.stop(audioContext.currentTime + 0.3);
+  o2.stop(audioContext.currentTime + 0.3);
+}
+
+function initGame() {
+  const canvas = document.getElementById('gameCanvas');
+  const wrapper = canvas.parentElement;
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(75, wrapper.clientWidth / wrapper.clientHeight, 0.1, 1000);
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
+  renderer.setClearColor(0x000000, 1);
+
+  const tubeGeo = new THREE.TorusGeometry(TUBE_RADIUS, 2, 32, 100);
+  const tubeMat = new THREE.MeshPhongMaterial({ color: 0x00ff66, transparent: true, opacity: 0.15, wireframe: true });
+  scene.add(new THREE.Mesh(tubeGeo, tubeMat));
+
+  const light = new THREE.PointLight(0xffffff, 1);
+  light.position.set(0, 0, 50);
+  scene.add(light);
+  scene.add(new THREE.AmbientLight(0x202020));
+
+  camera.position.z = 50;
+
+  window.addEventListener('resize', () => {
+    camera.aspect = wrapper.clientWidth / wrapper.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
+  });
+}
+
+function addParticle() {
+  const geo = new THREE.SphereGeometry(0.35, 16, 16);
+  const colors = [0x00ff66, 0x6d56fa, 0x0fd4a0, 0xf97316];
+  const col = colors[Math.floor(Math.random() * colors.length)];
+  const mat = new THREE.MeshPhongMaterial({ color: col, emissive: col, emissiveIntensity: 0.6 });
+  const p = new THREE.Mesh(geo, mat);
+  p.userData = {
+    angle: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.02 + 0.01,
+    direction: Math.random() > 0.5 ? 1 : -1,
+    phase: Math.random() * Math.PI * 2,
+    energy: 100
+  };
+  particles.push(p);
+  scene.add(p);
+  updateCounts();
+}
+
+function addDarkMatter() {
+  const geo = new THREE.SphereGeometry(1.2, 32, 32);
+  const mat = new THREE.MeshPhongMaterial({ color: 0x3b0fa0, transparent: true, opacity: 0.25 });
+  const dm = new THREE.Mesh(geo, mat);
+  dm.position.set(
+    (Math.random() - 0.5) * TUBE_RADIUS * 2,
+    (Math.random() - 0.5) * TUBE_RADIUS * 2,
+    (Math.random() - 0.5) * 10
+  );
+  darkMatter.push(dm);
+  scene.add(dm);
+}
+
+function resetGame() {
+  particles.forEach(p => scene.remove(p));
+  darkMatter.forEach(d => scene.remove(d));
+  plasmaParticles.forEach(p => scene.remove(p));
+  particles = []; darkMatter = []; plasmaParticles = [];
+  collisions = 0;
+  updateCounts();
+}
+
+function createPlasmaExplosion(position) {
+  for (let i = 0; i < 20; i++) {
+    const geo = new THREE.SphereGeometry(0.1, 8, 8);
+    const mat = new THREE.MeshPhongMaterial({ color: 0xffaa00, emissive: 0xff6600, emissiveIntensity: 1, transparent: true });
+    const p = new THREE.Mesh(geo, mat);
+    p.position.copy(position);
+    p.userData = {
+      velocity: new THREE.Vector3((Math.random()-0.5)*0.5, (Math.random()-0.5)*0.5, (Math.random()-0.5)*0.5),
+      lifetime: 60, maxLifetime: 60
+    };
+    plasmaParticles.push(p);
+    scene.add(p);
+  }
+}
+
+function updateCounts() {
+  document.getElementById('particleCount').textContent = particles.length;
+  document.getElementById('collisionCount').textContent = collisions;
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  const speed = document.getElementById('speed').value / 50;
+  const power = document.getElementById('power').value / 100;
+
+  scene.rotation.y += 0.002;
+
+  particles.forEach((particle, i) => {
+    particle.userData.angle += particle.userData.speed * speed * particle.userData.direction;
+    particle.position.x = Math.cos(particle.userData.angle) * TUBE_RADIUS;
+    particle.position.y = Math.sin(particle.userData.angle) * TUBE_RADIUS;
+    particle.position.z = Math.sin(particle.userData.phase) * 2;
+    particle.userData.phase += 0.01 * particle.userData.direction;
+
+    for (let j = i + 1; j < particles.length; j++) {
+      if (particle.position.distanceTo(particles[j].position) < 0.8) {
+        createPlasmaExplosion(particle.position.clone());
+        particle.userData.energy -= power * 12;
+        particles[j].userData.energy -= power * 12;
+        playCollisionSound();
+        collisions++;
+        updateCounts();
+      }
+    }
+    if (particle.userData.energy <= 0) {
+      scene.remove(particle);
+      particles.splice(i, 1);
+      updateCounts();
+    }
+  });
+
+  plasmaParticles.forEach((p, i) => {
+    p.position.add(p.userData.velocity);
+    p.userData.lifetime--;
+    p.material.opacity = p.userData.lifetime / p.userData.maxLifetime;
+    if (p.userData.lifetime <= 0) {
+      scene.remove(p);
+      plasmaParticles.splice(i, 1);
+    }
+  });
+
+  renderer.render(scene, camera);
+}
+
+// ─── SCROLL REVEAL ───
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// ─── INIT ───
+initGame();
+animate();
+// Auto-add 3 particles on load
+setTimeout(() => { addParticle(); addParticle(); addParticle(); }, 500);
+</script>
+</body>
+</html>

@@ -1078,7 +1078,7 @@ footer a { color: var(--accent2); text-decoration: none; }
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem;">
         <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent2); margin-bottom:1rem;">$ cat pushkar.json</div>
         <pre style="font-family:var(--mono); font-size:0.78rem; color:var(--muted); line-height:1.8; white-space:pre-wrap;">{
-  <span style="color:#a99ffa">"available"</span>: <span style="color:var(--accent2)">true</span>,
+    <span style="color:#a99ffa">"available"</span>: <span style="color:var(--accent2)">true</span>,
   <span style="color:#a99ffa">"open_to"</span>: [
     <span style="color:var(--accent3)">"AI/ML Engineer"</span>,
     <span style="color:var(--accent3)">"Backend Developer"</span>,
@@ -1087,6 +1087,7 @@ footer a { color: var(--accent2); text-decoration: none; }
   <span style="color:#a99ffa">"location"</span>: <span style="color:var(--accent3)">"Delhi, India"</span>,
   <span style="color:#a99ffa">"remote"</span>: <span style="color:var(--accent2)">true</span>,
   <span style="color:#a99ffa">"response_time"</span>: <span style="color:var(--accent3)">"&lt; 24 hours"</span>
+ 
 }</pre>
       </div>
     </div>
@@ -1094,8 +1095,16 @@ footer a { color: var(--accent2); text-decoration: none; }
 </section>
 
 <footer>
-  <span>© 2025 Pushkar · Built with ❤️ and too much coffee</span>
-  <span>Delhi, India 🇮🇳</span>
+  <!-- <span>© 2025 Pushkar · Built with ❤️ and too much coffee</span>
+  <span>Delhi, India 🇮🇳</span> -->
+  <span>
+  © <span id="year"></span> Pushkar · Built with ❤️ and too much coffee
+</span>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </footer>
 
 <!-- THREE.JS -->

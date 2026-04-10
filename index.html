@@ -113,13 +113,13 @@ section{padding:5rem var(--px);position:relative;}
 #game{padding:0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .game-inner{padding:5rem var(--px);}
 .game-wrapper{position:relative;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#000;height:min(500px,65vw);min-height:280px;margin-top:1.5rem;}
-.game-ui{position:absolute;top:12px;left:12px;z-index:10;display:flex;flex-direction:column;gap:.45rem;background:rgba(0,0,0,.82);border:1px solid rgba(0,255,100,.18);border-radius:10px;padding:.8rem .95rem;font-family:var(--mono);font-size:.68rem;color:#0f0;width:min(185px,43vw);}
+.game-ui{position:absolute;top:12px;right:12px;z-index:10;display:flex;flex-direction:column;gap:.45rem;background:rgba(0,0,0,.82);border:1px solid rgba(0,255,100,.18);border-radius:10px;padding:.8rem .95rem;font-family:var(--mono);font-size:.68rem;color:#0f0;width:min(185px,43vw);}
 .game-ui-title{font-weight:500;border-bottom:1px solid rgba(0,255,0,.15);padding-bottom:.35rem;margin-bottom:.1rem;font-size:.7rem;}
 .game-control{display:flex;flex-direction:column;gap:.15rem;}
 .game-control label{color:rgba(0,255,0,.65);font-size:.62rem;}
 .game-control input[type=range]{width:100%;accent-color:#0f0;cursor:pointer;height:14px;}
 .game-btns{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.15rem;}
-.game-btn{font-family:var(--mono);font-size:.6rem;padding:.22rem .45rem;background:rgba(0,255,0,.08);border:1px solid rgba(0,255,0,.22);color:#0f0;border-radius:4px;cursor:pointer;transition:background .15s;}
+.game-btn{font-family:var(--mono);font-size:.6rem;padding:.22rem .6rem;background:rgba(0,255,0,.08);border:1px solid rgba(0,255,0,.22);color:#0f0;border-radius:4px;cursor:pointer;transition:background .15s;}
 .game-btn:hover{background:rgba(0,255,0,.18);}
 .game-stat{color:rgba(0,255,0,.75);font-size:.62rem;}
 .game-stat span{color:#0f0;font-weight:500;}
@@ -377,10 +377,10 @@ footer{padding:1.75rem var(--px);border-top:1px solid var(--border);display:flex
         <div class="game-control"><label>Energy</label><input type="range" id="energy" min="1" max="100" value="50"></div>
         <div class="game-control"><label>Power</label><input type="range" id="power" min="1" max="100" value="75"></div>
         <div class="game-btns">
-          <button class="game-btn" onclick="initAudio()">🔊</button>
-          <button class="game-btn" onclick="addParticle()">+P</button>
-          <button class="game-btn" onclick="addDarkMatter()">+DM</button>
-          <button class="game-btn" onclick="resetGame()">↺</button>
+          <button class="game-btn" onclick="initAudio()">sound</button>
+          <button class="game-btn" onclick="addDarkMatter()">dark matter</button>
+          <button class="game-btn" onclick="addParticle()">particle</button>
+          <button class="game-btn" onclick="resetGame()">reset</button>
         </div>
         <div class="game-stat">Particles: <span id="particleCount">0</span></div>
         <div class="game-stat">Collisions: <span id="collisionCount">0</span></div>
@@ -466,9 +466,17 @@ footer{padding:1.75rem var(--px);border-top:1px solid var(--border);display:flex
 </section>
 
 <footer>
-  <span>© 2025 Pushkar · Delhi, India 🇮🇳</span>
+  <span id="footer-left"></span>
   <span>HTML · CSS · JS · Three.js</span>
 </footer>
+
+<script>
+  // get current year dynamically
+  const year = new Date().getFullYear();
+
+  // set footer text
+  document.getElementById("footer-left").innerText = `© ${year} Pushkar · Delhi, India 🇮🇳`;
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>

@@ -177,9 +177,9 @@ footer{padding:1.75rem var(--px);border-top:1px solid var(--border);display:flex
   .hero-stats{gap:1.25rem;}
   .hero-ctas{flex-direction:column;}
   .btn{width:100%;justify-content:center;}
-  .game-wrapper{display:flex;flex-direction:column;height:auto;min-height:280px;}
-  .game-ui{position:static;margin-bottom:1rem;align-self:center;}
-  #gameCanvas{flex:1;}
+  .game-wrapper{display:flex;gap:0.8rem;flex-direction:row;height:auto;}
+  .game-ui{position:static;width:auto;flex-shrink:0;background:rgba(0,0,0,.82);border:1px solid rgba(0,255,100,.18);}
+  #gameCanvas{flex:1;min-width:0;}
 }
 @media(max-width:480px){
   .game-ui{width:min(165px,47vw);font-size:.6rem;padding:.6rem .7rem;}

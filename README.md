@@ -2,7 +2,8 @@
 
 A modern, responsive personal portfolio website showcasing my projects, skills, and resume. The web app is designed with a sleek, dark-themed UI and features a fully interactive 3D physics simulation built with Three.js.
 
-![Portfolio Preview (Placeholder)](#) <!-- Add a screenshot of your portfolio here -->
+![](https://github.com/Pu5hk4r/Portfolio/blob/main/pushkar1.png)
+![](https://github.com/Pu5hk4r/Portfolio/blob/main/particle.mp4)
 
 🔗 **[Live Demo](https://portfolio-alpha-one-d21sm830b1.vercel.app/)**
 

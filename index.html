@@ -382,113 +382,23 @@
       font-weight: 600;
     }
 
-    /* Responsive adjustments for clock telemetry */
-    @media (max-width: 992px) {
-      .hud-clock-panel {
-        position: absolute;
-        top: auto;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        right: auto;
-        margin: 0;
-        z-index: 3;
-        gap: 0.75rem;
-      }
-
-      .hero-content {
-        padding-bottom: 12rem; /* Make space for the centered clock at the bottom */
-      }
-
-      .hud-analog-clock {
-        width: 3cm;
-        height: 3cm;
-      }
-
-      .hud-analog-clock::before {
-        top: 4px; bottom: 4px;
-        background: linear-gradient(to bottom, var(--text) 0, var(--text) 6px, transparent 6px, transparent calc(100% - 6px), var(--text) calc(100% - 6px));
-      }
-      .hud-analog-clock::after {
-        left: 4px; right: 4px;
-        background: linear-gradient(to right, var(--text) 0, var(--text) 6px, transparent 6px, transparent calc(100% - 6px), var(--text) calc(100% - 6px));
-      }
-
-      .hud-analog-clock .hour-hand {
-        width: 2.2px;
-        height: 28px;
-        margin-left: -1.1px;
-      }
-      .hud-analog-clock .min-hand {
-        width: 1.5px;
-        height: 40px;
-        margin-left: -0.75px;
-      }
-      .hud-analog-clock .sec-hand {
-        width: 0.8px;
-        height: 46px;
-        margin-left: -0.4px;
-      }
-      .hud-analog-clock .clock-center {
-        width: 5px;
-        height: 5px;
-      }
-      #hud-date-text {
-        font-size: 0.85rem;
-      }
-      #hud-days-text {
-        font-size: 0.68rem;
-      }
+    #mobile-nav-clock {
+      display: none;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
     }
 
-    @media (max-width: 480px) {
+    /* Responsive adjustments for clock telemetry */
+    @media (max-width: 992px) {
+      #mobile-nav-clock {
+        display: inline-block;
+      }
+
       .hud-clock-panel {
-        bottom: 15px;
-        gap: 0.5rem;
-      }
-
-      .hero-content {
-        padding-bottom: 10rem;
-      }
-
-      .hud-analog-clock {
-        width: 2.4cm;
-        height: 2.4cm;
-      }
-
-      .hud-analog-clock::before {
-        top: 3px; bottom: 3px;
-        background: linear-gradient(to bottom, var(--text) 0, var(--text) 4px, transparent 4px, transparent calc(100% - 4px), var(--text) calc(100% - 4px));
-      }
-      .hud-analog-clock::after {
-        left: 3px; right: 3px;
-        background: linear-gradient(to right, var(--text) 0, var(--text) 4px, transparent 4px, transparent calc(100% - 4px), var(--text) calc(100% - 4px));
-      }
-
-      .hud-analog-clock .hour-hand {
-        width: 1.8px;
-        height: 22px;
-        margin-left: -0.9px;
-      }
-      .hud-analog-clock .min-hand {
-        width: 1.2px;
-        height: 32px;
-        margin-left: -0.6px;
-      }
-      .hud-analog-clock .sec-hand {
-        width: 0.6px;
-        height: 36px;
-        margin-left: -0.3px;
-      }
-      .hud-analog-clock .clock-center {
-        width: 4px;
-        height: 4px;
-      }
-      #hud-date-text {
-        font-size: 0.75rem;
-      }
-      #hud-days-text {
-        font-size: 0.62rem;
+        display: none !important;
       }
     }
 
@@ -1614,6 +1524,7 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div style="display: flex; gap: 1rem; align-items: center;">
+      <span id="mobile-nav-clock">--:-- IST · --/--/----</span>
       <button id="theme-toggle" aria-label="Toggle Theme" style="background:none; border:none; color:var(--text); cursor:pointer; font-size:0.8rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif; display: flex; gap: 0.4rem; align-items: center; justify-content: center; letter-spacing: 0.05em; text-transform: uppercase;">
         <span id="theme-icon">☀️</span> <span id="theme-text">Day Mode</span>
       </button>
@@ -2257,6 +2168,17 @@
         const month = (ist.getMonth() + 1) < 10 ? '0' + (ist.getMonth() + 1) : (ist.getMonth() + 1);
         const year = ist.getFullYear();
         document.getElementById('hud-date-text').textContent = `${day}/${month}/${year}`;
+
+        // Mobile Digital Clock String: H:MM AM/PM · DD/MM/YYYY
+        const displayHours = hours % 12 || 12;
+        const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const mobileClockText = `${displayHours}:${displayMinutes} ${ampm} · ${day}/${month}/${year}`;
+        
+        const mobileClockEl = document.getElementById('mobile-nav-clock');
+        if (mobileClockEl) {
+          mobileClockEl.textContent = mobileClockText;
+        }
 
         // Days left for 2027
         const midnightToday = new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());

@@ -385,38 +385,110 @@
     /* Responsive adjustments for clock telemetry */
     @media (max-width: 992px) {
       .hud-clock-panel {
-        position: relative;
+        position: absolute;
         top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
         right: auto;
-        transform: none;
-        margin: 2.5rem auto 1rem;
+        margin: 0;
         z-index: 3;
+        gap: 0.75rem;
       }
-    }
 
-    @media (max-width: 480px) {
-      .hud-analog-clock {
-        width: 3.8cm;
-        height: 3.8cm;
+      .hero-content {
+        padding-bottom: 12rem; /* Make space for the centered clock at the bottom */
       }
+
+      .hud-analog-clock {
+        width: 3cm;
+        height: 3cm;
+      }
+
+      .hud-analog-clock::before {
+        top: 4px; bottom: 4px;
+        background: linear-gradient(to bottom, var(--text) 0, var(--text) 6px, transparent 6px, transparent calc(100% - 6px), var(--text) calc(100% - 6px));
+      }
+      .hud-analog-clock::after {
+        left: 4px; right: 4px;
+        background: linear-gradient(to right, var(--text) 0, var(--text) 6px, transparent 6px, transparent calc(100% - 6px), var(--text) calc(100% - 6px));
+      }
+
       .hud-analog-clock .hour-hand {
-        height: 34px;
-        width: 2.5px;
-        margin-left: -1.25px;
+        width: 2.2px;
+        height: 28px;
+        margin-left: -1.1px;
       }
       .hud-analog-clock .min-hand {
-        height: 48px;
-        width: 1.8px;
-        margin-left: -0.9px;
+        width: 1.5px;
+        height: 40px;
+        margin-left: -0.75px;
       }
       .hud-analog-clock .sec-hand {
-        height: 56px;
+        width: 0.8px;
+        height: 46px;
+        margin-left: -0.4px;
+      }
+      .hud-analog-clock .clock-center {
+        width: 5px;
+        height: 5px;
       }
       #hud-date-text {
         font-size: 0.85rem;
       }
       #hud-days-text {
         font-size: 0.68rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hud-clock-panel {
+        bottom: 15px;
+        gap: 0.5rem;
+      }
+
+      .hero-content {
+        padding-bottom: 10rem;
+      }
+
+      .hud-analog-clock {
+        width: 2.4cm;
+        height: 2.4cm;
+      }
+
+      .hud-analog-clock::before {
+        top: 3px; bottom: 3px;
+        background: linear-gradient(to bottom, var(--text) 0, var(--text) 4px, transparent 4px, transparent calc(100% - 4px), var(--text) calc(100% - 4px));
+      }
+      .hud-analog-clock::after {
+        left: 3px; right: 3px;
+        background: linear-gradient(to right, var(--text) 0, var(--text) 4px, transparent 4px, transparent calc(100% - 4px), var(--text) calc(100% - 4px));
+      }
+
+      .hud-analog-clock .hour-hand {
+        width: 1.8px;
+        height: 22px;
+        margin-left: -0.9px;
+      }
+      .hud-analog-clock .min-hand {
+        width: 1.2px;
+        height: 32px;
+        margin-left: -0.6px;
+      }
+      .hud-analog-clock .sec-hand {
+        width: 0.6px;
+        height: 36px;
+        margin-left: -0.3px;
+      }
+      .hud-analog-clock .clock-center {
+        width: 4px;
+        height: 4px;
+      }
+      #hud-date-text {
+        font-size: 0.75rem;
+      }
+      #hud-days-text {
+        font-size: 0.62rem;
       }
     }
 
